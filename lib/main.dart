@@ -69,7 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(height: 40),
           Container(
             child: Text("Hi Daniel,\nhere's your impact summary",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700)),
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w700)),
           ),
           SizedBox(height: 10),
           Container(
@@ -81,7 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   CircularChartAnnotation(
                       widget: Container(
                           child: const Text("\n dollars \n\n hours",
-                              style: TextStyle(fontSize: 15))),
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 15))),
                       radius: '0%',
                       verticalAlignment: ChartAlignment.center)
                   //horizontalAlignment: ChartAlignment.far)
@@ -100,11 +104,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   //maximumValue: 40000)
                 ],
                 legend: Legend(
-                    padding: 12,
+                    orientation: LegendItemOrientation.horizontal,
+                    padding: 5,
                     isVisible: true,
                     overflowMode: LegendItemOverflowMode.wrap,
                     position: LegendPosition.bottom,
-                    textStyle: TextStyle(fontSize: 14)),
+                    textStyle: TextStyle(fontSize: 16)),
                 tooltipBehavior: _tooltipBehavior,
               )),
           SizedBox(height: 20),
@@ -244,11 +249,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontSize: 25,
                     fontWeight: FontWeight.w700)),
           ),
-          SizedBox(height: 20),
+          //SizedBox(height: 10),
           Container(
               height: 400,
-              //padding: new EdgeInsets.(5.0),
-              //alignment: Alignment.center,
+              padding: const EdgeInsets.all(5.0),
+              alignment: Alignment.center,
               child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
@@ -306,16 +311,63 @@ class _MyHomePageState extends State<MyHomePage> {
                                 color: Colors.green)),
                       ),
                     ],
-                  )))
+                  ))),
+          //SizedBox(height: 5),
+          Container(
+            child: Text("Badges",
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w700)),
+          ),
+          SizedBox(height: 10),
+          Container(
+            height: 125,
+            padding: EdgeInsets.all(15.0),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                Container(
+                  width: 110,
+                  color: Colors.grey,
+                  child: const Center(
+                      child: Text(
+                    'Badge 1',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  )),
+                ),
+                SizedBox(width: 25),
+                Container(
+                  width: 110,
+                  color: Colors.grey,
+                  child: const Center(
+                      child: Text(
+                    'Badge 2',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  )),
+                ),
+                SizedBox(width: 25),
+                Container(
+                  width: 110,
+                  color: Colors.grey,
+                  child: const Center(
+                      child: Text(
+                    'Badge 3',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  )),
+                ),
+              ],
+            ),
+          ),
         ]))));
   }
 
   List<Nonprofits> getChartData() {
     final List<Nonprofits> chartData = [
       Nonprofits('Education', 50, Colors.deepPurple),
-      Nonprofits('Environment', 5, Colors.yellowAccent),
+      Nonprofits('Cultural', 25, Colors.red),
       Nonprofits('Health', 15, Colors.teal),
-      Nonprofits('Cultural', 25, Colors.red)
+      Nonprofits('Environment', 5, Colors.yellowAccent),
     ];
     return chartData;
   }

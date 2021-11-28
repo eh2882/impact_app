@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'nonprofit.dart';
 
 void main() {
   runApp(MyApp());
@@ -320,10 +321,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return chartData;
   }
 }
-
+/*
 class Nonprofits {
   Nonprofits(this.org, this.impact, this.color);
   final String org;
   final int impact;
   final Color color;
 }
+*/

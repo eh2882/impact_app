@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'nonprofit.dart';
+import 'VolunteeringActivity.dart';
+import 'DonationActivity.dart';
+import 'activity.dart';
+import 'DetailPage.dart';
 void main() {
   runApp(MyApp());
 }
@@ -11,6 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes:{
+        DetailPage.routeName:(context) =>
+            const DetailPage(),
+
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -264,6 +273,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       ListTile(
+                        onTap:(){
+                          Navigator.pushNamed(context, DetailPage.routeName,
+                          arguments:VolunteeringActivity('Autism Speaks',DateTime(2021,11,15),3,),);
+                        },
                         title: const Text('Autism Speaks',
                             style: TextStyle(fontWeight: FontWeight.w500)),
                         leading: Icon(Icons.extension_rounded),

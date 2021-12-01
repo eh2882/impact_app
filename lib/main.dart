@@ -1,3 +1,7 @@
+import 'dart:core';
+
+
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -51,7 +55,7 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
-
+  
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -69,6 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List <Activity> activities= [VolunteeringActivity('Autism Speak',DateTime.utc(2021,11,15),Icon(Icons.extension_rounded),3),DonationActivity('Action in Africa',DateTime.utc(2021,10,25),Icon(Icons.support),20),
+  VolunteeringActivity('Lifewater',DateTime.utc(2021,9,15),Icon(Icons.water),5),DonationActivity('World Concern',DateTime.utc(2021,9,21),Icon(Icons.public),50)];
+
     return Container(
         child: Scaffold(
             body: SingleChildScrollView(
@@ -271,60 +278,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   elevation: 10,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        onTap:(){
-                          Navigator.pushNamed(context, DetailPage.routeName,
-                          arguments:VolunteeringActivity('Autism Speaks',DateTime(2021,11,15),3,),);
-                        },
-                        title: const Text('Autism Speaks',
-                            style: TextStyle(fontWeight: FontWeight.w500)),
-                        leading: Icon(Icons.extension_rounded),
-                        subtitle: const Text('Nov 15, 2021'),
-                        trailing: const Text('3 hours',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.orange)),
-                      ),
-                      const Divider(),
-                      ListTile(
-                        title: const Text('Action in Africa',
-                            style: TextStyle(fontWeight: FontWeight.w500)),
-                        leading: Icon(Icons.support),
-                        subtitle: const Text('Oct 25, 2021'),
-                        trailing: const Text('20 dollars',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.green)),
-                      ),
-                      const Divider(),
-                      ListTile(
-                        title: const Text('Lifewater',
-                            style: TextStyle(fontWeight: FontWeight.w500)),
-                        leading: Icon(Icons.water),
-                        subtitle: const Text('Sept 15, 2021'),
-                        trailing: const Text('5 hours',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.orange)),
-                      ),
-                      const Divider(),
-                      ListTile(
-                        title: const Text('World Concern',
-                            style: TextStyle(fontWeight: FontWeight.w500)),
-                        leading: Icon(Icons.public),
-                        subtitle: const Text('Sept 12, 2021'),
-                        trailing: const Text('50 dollars',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.green)),
-                      ),
-                    ],
-                  ))),
+                    children:List.generate(activities.length*2-1,(index){
+                      if (index.isOdd){
+                        return const Divider();
+                      }
+                      if (index==0){
+            return _buildRow(activities[index]);}
+            int i = (index - (index~/2)) as int;
+            return _buildRow(activities[i]);
+          }),
+          ))),
           //SizedBox(height: 5),
           Container(
             child: Text("Badges",
@@ -372,7 +335,42 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-        ]))));
+        ])
+        ))
+        );
+  }
+  Widget _buildRow(Activity a) {
+    Color fontcolor = Colors.green;
+    Activity? arg; 
+    if(a is VolunteeringActivity)
+    {
+      fontcolor = Colors.orange;
+      arg = VolunteeringActivity(a.org,a.date,a.icon,(a as VolunteeringActivity).hours,);
+    }else if(a is DonationActivity)
+    {
+      arg = DonationActivity(a.org,a.date,a.icon,(a as DonationActivity).dollars);
+    }
+
+    return ListTile(
+      onTap:(){
+                          Navigator.pushNamed(context, DetailPage.routeName,
+                          arguments:arg,);
+                        },
+      title:  Text(a.org,
+                            style: TextStyle(fontWeight: FontWeight.w500)),
+                        leading: a.icon,
+                        subtitle:  Text(a.org),
+                        trailing:  Text(((){
+                          if(a is DonationActivity)
+                          {
+                          return (a as DonationActivity).dollars.toStringAsPrecision(2) +' dollars';}
+                          return (a as VolunteeringActivity).hours.toString()+' hours';
+                          }()),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                color: fontcolor)),
+                      );
   }
 
   List<Nonprofits> getChartData() {

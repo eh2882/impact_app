@@ -1,10 +1,10 @@
-
+import 'package:flutter/material.dart';
 import 'nonprofit.dart';
 import 'activity.dart';
 class VolunteeringActivity extends Activity{
   int hours = 0;
   
-  VolunteeringActivity(String org, DateTime date,int hours):super(org,date)
+  VolunteeringActivity(String org, DateTime date,Icon i,int hours):super(org,date,i)
   {
     
     this.hours = hours;
@@ -16,9 +16,3 @@ class VolunteeringActivity extends Activity{
   
 }
 
-void main(){
-  
-  var a = new VolunteeringActivity("Lifewater",DateTime.now(),7);
-  print(a);
-
-}

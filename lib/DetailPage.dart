@@ -11,14 +11,15 @@ class DetailPage extends StatelessWidget{
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
-    final args = ModalRoute.of(context)!.settings.arguments as VolunteeringActivity;
+    final args = ModalRoute.of(context)!.settings.arguments as Activity;
     final DateFormat formatter = DateFormat('MM-dd-yyyy');
     var summary = args.summary;
     return MaterialApp(
       title:"detail",
       home: Scaffold(
       appBar: AppBar(
-        title: Text("detail"),
+        title: Text("detail",
+        textAlign: TextAlign.center,),
         leading: IconButton(icon:Icon(Icons.arrow_back),
           //onPressed:() => Navigator.pop(context, false),
           onPressed:() => Navigator.pop(context),
@@ -26,8 +27,9 @@ class DetailPage extends StatelessWidget{
       ),
       body: Column(
         children:  <Widget>[
-          Text(args.summary),
+          
           Text(formatter.format(args.date)),
+          Text(args.summary),
         ],
       ),
     ),
